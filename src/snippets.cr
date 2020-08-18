@@ -95,7 +95,7 @@ class Snippets
       files.each do |file|
         scope = path.relative_to(root).to_s
         name = file.basename
-        content = File.read(file)
+        content = File.read(file).chomp
 
         snippets[scope][name] = Snippet.new(scope, name, content)
       end
