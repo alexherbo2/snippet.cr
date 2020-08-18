@@ -8,12 +8,19 @@ SNIPPETS_PATH = Path[ENV["XDG_CACHE_HOME"], "snippets.json"]
 # Subcommand
 command = :help
 
+# Options
+watch = false
+
 # Option parser
 option_parser = OptionParser.new do |parser|
   parser.banner = "Usage: snippets <command> [arguments]"
 
   parser.on("build", "Build snippets") do
     command = :build
+
+    parser.on("--watch", "Watch specified directories") do
+      watch = true
+    end
   end
 
   parser.on("get", "Get a property") do
@@ -61,7 +68,14 @@ case command
 
 when :build
   paths = ARGV
-  snippets.build(paths).to_json
+
+  puts snippets.build(paths).to_json
+
+  if watch
+    snippets.watch(paths) do
+      puts snippets.all.to_json
+    end
+  end
 
 # Get ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
 

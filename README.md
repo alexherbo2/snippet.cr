@@ -17,7 +17,7 @@ make install
 ## Usage
 
 ```
-snippets build [directory...]
+snippets build [--watch] [directory...]
 snippets get path
 snippets get all
 snippets get snippets [scope...]

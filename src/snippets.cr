@@ -121,6 +121,38 @@ class Snippets
     snippets
   end
 
+  # Watch ──────────────────────────────────────────────────────────────────────
+
+  def watch(directories : Array(Path | String), &block)
+    self.class.watch(directories) do
+      build(directories)
+
+      # Yield
+      block.call if block
+    end
+  end
+
+  def self.watch(directories : Array(String), &block)
+    directories = directories.map do |directory|
+      Path[directory]
+    end
+
+    watch(directories, &block)
+  end
+
+  def self.watch(directories : Array(Path))
+    directories = directories.map(&.to_s)
+
+    loop do
+      status = Process.run("inotifywait", ["--recursive", "--event", "close_write"] + directories)
+
+      break unless status.exit_code.zero?
+
+      # Yield
+      yield
+    end
+  end
+
   # Walk ───────────────────────────────────────────────────────────────────────
 
   def self.walk(path, &block : Path, Array(Path), Array(Path) ->)
