@@ -48,24 +48,31 @@ class Snippets
 
   # Get ────────────────────────────────────────────────────────────────────────
 
+  # All
   def get
     all
   end
 
+  # Scope
+  # Example: snippets.get("crystal")
   def get(scope_name : String)
     @snippets.fetch(scope_name, HashSnippets.new)
   end
 
+  # Example: snippets.get(["crystal", "crystal/spec"])
   def get(scope_names : Array(String))
     scope_names.each_with_object(HashSnippets.new) do |scope_name, scoped_snippets|
       scoped_snippets.merge!(get(scope_name))
     end
   end
 
+  # Dig into the snippets
+  # Example: snippets.get("crystal", "def")
   def get(scope_name : String, snippet_name)
     @snippets.dig?(scope_name, snippet_name)
   end
 
+  # Example: snippets.get(["crystal", "crystal/spec"], "it")
   def get(scope_names : Array(String), snippet_name)
     scope_names.each
 
