@@ -17,20 +17,35 @@ alias HashScopes = Hash(String, HashSnippets)
 
 class Snippets
 
-  property path
+  property data_path
+  property build_paths
+
+  # Converts string paths
+  def build_paths=(paths : Array(String))
+    paths = paths.map do |path|
+      Path[path]
+    end
+
+    @build_paths = paths
+  end
 
   # Initialize ─────────────────────────────────────────────────────────────────
 
-  def initialize(@path : Path)
-    if File.exists?(@path)
-      @snippets = HashScopes.from_json(File.open(@path))
+  def initialize(data @data_path : Path, build @build_paths : Array(Path))
+    if File.exists?(@data_path)
+      @snippets = HashScopes.from_json(File.open(@data_path))
     else
       @snippets = HashScopes.new
     end
   end
 
-  def self.new(path : String)
-    new(Path[path])
+  def self.new(data data_path : String, build build_paths : Array(String))
+    data_path = Path[data_path]
+    build_paths = build_paths.map do |path|
+      Path[path]
+    end
+
+    new(data_path, build_paths)
   end
 
   # All ────────────────────────────────────────────────────────────────────────
@@ -71,10 +86,10 @@ class Snippets
 
   # Build ──────────────────────────────────────────────────────────────────────
 
-  def build(path : Path | String | Array(Path | String))
-    @snippets = self.class.build(path)
+  def build
+    @snippets = self.class.build(@build_paths)
 
-    File.write(@path, @snippets.to_json)
+    File.write(@data_path, @snippets.to_json)
 
     @snippets
   end
@@ -123,9 +138,9 @@ class Snippets
 
   # Watch ──────────────────────────────────────────────────────────────────────
 
-  def watch(directories : Array(Path | String), &block)
-    self.class.watch(directories) do
-      build(directories)
+  def watch(&block)
+    self.class.watch(@build_paths) do
+      build
 
       # Yield
       block.call if block
