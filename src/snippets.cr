@@ -23,11 +23,7 @@ class Snippets
 
   # Converts string paths
   def input_paths=(paths : Array(String))
-    paths = paths.map do |path|
-      Path[path]
-    end
-
-    @input_paths = paths
+    @input_paths = self.class.pathify(paths)
   end
 
   # Initialize ─────────────────────────────────────────────────────────────────
@@ -41,12 +37,7 @@ class Snippets
   end
 
   def self.new(input input_paths : Array(String), output output_path : String)
-    input_paths = input_paths.map do |path|
-      Path[path]
-    end
-    output_path = Path[output_path]
-
-    new(input_paths, output_path)
+    new(pathify(input_paths), pathify(output_path))
   end
 
   # All ────────────────────────────────────────────────────────────────────────
@@ -121,7 +112,7 @@ class Snippets
   end
 
   def self.build(path : String)
-    build(Path[path])
+    build(pathify(path))
   end
 
   def self.build(paths : Array(Path | String))
@@ -149,11 +140,7 @@ class Snippets
   end
 
   def self.watch(directories : Array(String), &block)
-    directories = directories.map do |directory|
-      Path[directory]
-    end
-
-    watch(directories, &block)
+    watch(pathify(directories), &block)
   end
 
   def self.watch(directories : Array(Path))
@@ -188,6 +175,18 @@ class Snippets
     # Recursion
     directories.each do |directory|
       walk(directory, &block)
+    end
+  end
+
+  # Pathify ────────────────────────────────────────────────────────────────────
+
+  def self.pathify(path : String)
+    Path[path]
+  end
+
+  def self.pathify(paths : Array(String))
+    paths.map do |path|
+      pathify(path)
     end
   end
 end

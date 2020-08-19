@@ -4,9 +4,7 @@ require "./env"
 
 # Default input and output paths
 SNIPPETS_CONFIG_PATH = Path[ENV["XDG_CONFIG_HOME"], "snippets"]
-SNIPPETS_INPUT_PATHS = Dir.children(SNIPPETS_CONFIG_PATH).map do |child|
-  SNIPPETS_CONFIG_PATH / child
-end
+SNIPPETS_INPUT_PATHS = Snippets.pathify(Dir.glob(SNIPPETS_CONFIG_PATH / "*"))
 SNIPPETS_OUTPUT_PATH = Path[ENV["XDG_CACHE_HOME"], "snippets.json"]
 
 # Subcommand
