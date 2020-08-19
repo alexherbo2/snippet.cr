@@ -4,6 +4,10 @@ require "./env"
 
 # Snippets location
 SNIPPETS_PATH = Path[ENV["XDG_CACHE_HOME"], "snippets.json"]
+SNIPPETS_CONFIG_PATH = Path[ENV["XDG_CONFIG_HOME"], "snippets"]
+SNIPPETS_BUILD_PATHS = Dir.children(SNIPPETS_CONFIG_PATH).map do |child|
+  SNIPPETS_CONFIG_PATH / child
+end
 
 # Subcommand
 command = :help
@@ -67,7 +71,13 @@ case command
 # Build ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
 
 when :build
-  paths = ARGV
+  # Build paths
+  paths = ARGV.map do |path|
+    Path[path]
+  end
+
+  # Default build paths
+  paths = SNIPPETS_BUILD_PATHS if paths.empty?
 
   puts snippets.build(paths).to_json
 

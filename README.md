@@ -27,7 +27,7 @@ snippets get snippet [scope...] [name]
 ## Examples
 
 ``` sh
-snippets build snippets
+snippets build
 snippets get path
 snippets get all
 snippets get snippets crystal
