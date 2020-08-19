@@ -1,0 +1,6 @@
+case {{expression}}
+when {{value}}
+	{{when-clause}}
+else
+	{{else-clause}}
+end

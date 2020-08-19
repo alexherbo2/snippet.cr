@@ -1,0 +1,3 @@
+do |{{parameters}}|
+	{{content}}
+end

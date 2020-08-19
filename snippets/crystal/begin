@@ -1,0 +1,5 @@
+begin
+	{{begin-statements}}
+rescue {{exception}}
+	{{rescue-statements}}
+end
