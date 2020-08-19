@@ -14,6 +14,12 @@ An editor agnostic command-line tool for snippets.
 make install
 ```
 
+### Editor integration
+
+- [Kakoune][snippets.kak]
+
+[snippets.kak]: https://github.com/alexherbo2/snippets.kak
+
 ## Usage
 
 ```
