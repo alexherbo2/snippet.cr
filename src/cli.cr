@@ -28,16 +28,12 @@ option_parser = OptionParser.new do |parser|
   parser.on("get", "Get a property") do
     command = :get
 
-    parser.on("path", "Get path") do
-      command = :get_path
+    parser.on("input_paths", "Get input paths") do
+      command = :get_input_paths
+    end
 
-      parser.on("input", "Get input paths") do
-        command = :get_input_paths
-      end
-
-      parser.on("output", "Get output path") do
-        command = :get_output_path
-      end
+    parser.on("output_path", "Get output path") do
+      command = :get_output_path
     end
 
     parser.on("all", "Get all snippets") do
@@ -92,9 +88,6 @@ when :build
 
 when :get
   puts option_parser.parse(["get", "--help"])
-
-when :get_path
-  puts option_parser.parse(["get", "path", "--help"])
 
 when :get_input_paths
   puts snippets.input_paths.to_json
