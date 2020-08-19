@@ -18,7 +18,8 @@ make install
 
 ```
 snippets build [--watch] [directory...]
-snippets get path
+snippets get path input
+snippets get path output
 snippets get all
 snippets get snippets [scope...]
 snippets get snippet [scope...] [name]
@@ -28,7 +29,8 @@ snippets get snippet [scope...] [name]
 
 ``` sh
 snippets build
-snippets get path
+snippets get path input
+snippets get path output
 snippets get all
 snippets get snippets crystal
 snippets get snippet crystal def
