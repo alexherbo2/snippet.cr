@@ -1,0 +1,5 @@
+<% if {{expression}} %>
+	{{if-clause}}
+<% else %>
+	{{else-clause}}
+<% end %>
