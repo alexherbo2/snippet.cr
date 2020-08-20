@@ -1,0 +1,3 @@
+define-command {{name}} -params {{parameters}} -docstring '{{description}}' %{
+	{{content}}
+}
