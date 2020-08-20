@@ -1,0 +1,30 @@
+# FontAwesome::Sass
+
+https://github.com/FortAwesome/font-awesome-sass
+
+## Installation
+
+Gemfile:
+
+``` ruby
+gem 'font-awesome-sass'
+```
+
+``` sh
+bundle install
+```
+
+### Rename your application.css file
+
+``` sh
+mv app/assets/stylesheets/application.css app/assets/stylesheets/application.css.scss
+```
+
+### Import the FontAwesome styles
+
+app/assets/stylesheets/application.css.scss:
+
+``` scss
+@import "font-awesome-sprockets";
+@import "font-awesome";
+```

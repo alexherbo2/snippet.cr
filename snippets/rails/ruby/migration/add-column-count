@@ -1,0 +1,8 @@
+# Example:
+# add_column :pages, :views_count, :integer
+#
+# Note: Add a belongs_to :counter_cache association to the View model.
+#
+# Example:
+# A View belongs_to :page, counter_cache: true
+add_column :{{table}}, :{{records}}_count, :integer

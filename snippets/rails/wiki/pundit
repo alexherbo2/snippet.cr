@@ -1,0 +1,92 @@
+# Pundit
+
+https://github.com/varvet/pundit
+
+## Installation
+
+https://github.com/varvet/pundit#installation
+
+Gemfile:
+
+``` ruby
+gem 'pundit'
+```
+
+``` sh
+bundle install
+```
+
+### Include Pundit
+
+app/controllers/application_controller.rb:
+
+``` ruby
+class ApplicationController < ActionController::Base
+	include Pundit
+
+	after_action :verify_authorized, except: :index, unless: :skip_pundit?
+	after_action :verify_policy_scoped, only: :index, unless: :skip_pundit?
+
+	protected def skip_pundit?
+		devise_controller? || params[:controller] == 'pages'
+	end
+end
+```
+
+See “Ensuring policies and scopes are used”.
+
+https://github.com/varvet/pundit#ensuring-policies-and-scopes-are-used
+
+### Generate policies
+
+``` sh
+rails generate pundit:install
+```
+
+Generate `Post` policy:
+
+``` sh
+rails generate pundit:policy post
+```
+
+See app/policies.
+
+## Policies
+
+https://github.com/varvet/pundit#policies
+
+app/policies/post_policy.rb:
+
+``` ruby
+class PostPolicy < ApplicationPolicy
+	def update?
+		user.admin? || record.valid?
+	end
+end
+```
+
+See also app/policies/application_policy.rb.
+
+### Controllers
+
+app/controllers/posts_controller.rb:
+
+``` ruby
+class PostsController < ApplicationController
+	def update
+		...
+		authorize @post
+		...
+	end
+end
+```
+
+### Views
+
+app/views/posts/show.html.erb:
+
+``` eruby
+<% if policy(@post).update? %>
+	<%= link_to 'Edit post', edit_post_path(@post) %>
+<% end %>
+```

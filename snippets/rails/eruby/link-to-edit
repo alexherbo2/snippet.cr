@@ -1,0 +1,3 @@
+<%= link_to edit_{{path}}_path({{record}}) do %>
+	Edit
+<% end %>

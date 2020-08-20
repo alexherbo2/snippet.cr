@@ -1,0 +1,3 @@
+# Validates boolean
+validates :{{column}}, inclusion: [true, false]
+validates :{{column}}, exclusion: [nil]

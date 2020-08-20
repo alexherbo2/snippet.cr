@@ -1,0 +1,8 @@
+# Example:
+# A View belongs_to :page, counter_cache: true
+#
+# Note: Add a column named views_count to the Page model.
+#
+# Example:
+# add_column :pages, :views_count, :integer
+belongs_to :{{model}}, counter_cache: true

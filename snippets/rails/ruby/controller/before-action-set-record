@@ -1,0 +1,5 @@
+before_action :set_{{record}}, only: %i[show edit update destroy]
+
+private def set_{{record}}
+	@{{record}} = {{model}}.find(params[:id])
+end

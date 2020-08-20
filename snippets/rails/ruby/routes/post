@@ -1,0 +1,1 @@
+post '{{route}}', to: '{{controller}}#{{action}}'

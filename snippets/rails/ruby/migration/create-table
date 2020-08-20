@@ -1,0 +1,4 @@
+# https://guides.rubyonrails.org/active_record_migrations.html#creating-a-table
+create_table :{{table}} do |table|
+	{{content}}
+end

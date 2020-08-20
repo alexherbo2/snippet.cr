@@ -1,0 +1,19 @@
+# Simple Form
+
+https://github.com/heartcombo/simple_form
+
+## Installation
+
+Gemfile:
+
+``` ruby
+gem 'simple_form'
+```
+
+``` sh
+bundle install
+```
+
+``` sh
+rails generate simple_form:install
+```

@@ -1,0 +1,23 @@
+# Bootstrap
+
+https://getbootstrap.com
+
+## Installation
+
+``` sh
+yarn add bootstrap jquery popper.js
+```
+
+### Rename your application.css file
+
+``` sh
+mv app/assets/stylesheets/application.css app/assets/stylesheets/application.css.scss
+```
+
+### Import the Bootstrap styles
+
+app/assets/stylesheets/application.css.scss:
+
+``` scss
+@import "bootstrap/scss/bootstrap";
+```

@@ -1,0 +1,122 @@
+# Devise
+
+https://github.com/heartcombo/devise
+https://github.com/heartcombo/devise#getting-started
+
+## Installation
+
+Gemfile:
+
+``` ruby
+gem 'devise'
+```
+
+``` sh
+bundle install
+```
+
+``` sh
+rails generate devise:install
+```
+
+## Setup
+
+### Configure the mailer for Devise
+
+config/environments/development.rb:
+
+``` ruby
+Rails.application.configure do
+	config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+end
+```
+
+### Generate a User model
+
+``` sh
+rails generate devise User
+```
+
+Run the migration:
+
+``` sh
+rails db:migrate
+```
+
+## Controller filters and helpers
+
+https://github.com/heartcombo/devise#controller-filters-and-helpers
+
+app/controllers/application_controller.rb:
+
+``` ruby
+class ApplicationController < ActionController::Base
+	before_action :authenticate_user!
+end
+```
+
+### Skip authentication
+
+app/controllers/pages_controller.rb:
+
+``` ruby
+class PagesController < ApplicationController
+	skip_before_action :authenticate_user!, only: %i[home]
+
+	def home
+	end
+end
+```
+
+### Helpers
+
+- user_signed_in?
+- current_user
+- user_session
+
+Use them in your controllers and views.
+
+## Configuring models
+
+https://github.com/heartcombo/devise#configuring-models
+
+## Strong parameters
+
+https://github.com/heartcombo/devise#strong-parameters
+
+### Devise controller actions
+
+- sign_in
+- sign_up
+- account_update
+
+### Strong parameters
+
+app/controllers/application_controller.rb:
+
+``` ruby
+class ApplicationController < ActionController::Base
+	before_action :configure_permitted_parameters, if: :devise_controller?
+
+	protected def configure_permitted_parameters
+		devise_parameter_sanitizer.permit(:sign_up) do |user_params|
+			user_params.permit(:username, :email)
+		end
+	end
+end
+```
+
+## Configuring views
+
+https://github.com/heartcombo/devise#configuring-views
+
+``` sh
+rails generate devise:views
+```
+
+app/views/layouts/application.html.erb:
+
+``` eruby
+<%= notice %>
+<%= alert %>
+```

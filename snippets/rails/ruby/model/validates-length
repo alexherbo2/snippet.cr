@@ -1,0 +1,1 @@
+validates :{{column}}, length: {{minimum}}..{{maximum}}

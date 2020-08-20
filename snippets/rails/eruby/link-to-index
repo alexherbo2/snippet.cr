@@ -1,0 +1,3 @@
+<%= link_to {{path}}_path do %>
+	Index
+<% end %>

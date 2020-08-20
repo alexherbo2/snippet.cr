@@ -1,0 +1,32 @@
+# Index
+def index
+	{{index-content}}
+end
+
+# Create
+def new
+	{{new-content}}
+end
+
+def create
+	{{create-content}}
+end
+
+# Read
+def show
+	{{show-content}}
+end
+
+# Update
+def edit
+	{{edit-content}}
+end
+
+def update
+	{{update-content}}
+end
+
+# Delete
+def destroy
+	{{destroy-content}}
+end

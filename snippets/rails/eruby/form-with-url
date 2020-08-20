@@ -1,0 +1,6 @@
+<%= form_with url: {{url}} do |form| %>
+	<%= form.label :{{name}} %>
+	<%= form.{{type}}_field :{{name}} %>
+
+	<%= form.submit %>
+<% end >

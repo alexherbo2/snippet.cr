@@ -1,0 +1,3 @@
+private def {{model}}_params
+	params.require(:{{model}}).permit(:{{attribute}})
+end
