@@ -1,0 +1,3 @@
+<nav>
+	{{content}}
+</nav>

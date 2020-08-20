@@ -1,0 +1,3 @@
+<select name="{{name}}" id="{{id}}">
+	<option value="{{value}}">{{content}}</option>
+</select>
