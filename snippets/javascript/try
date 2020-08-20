@@ -1,0 +1,5 @@
+try {
+	{{try-statements}}
+} catch ({{exception}}) {
+	{{catch-statements}}
+}

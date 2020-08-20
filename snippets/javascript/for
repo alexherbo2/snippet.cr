@@ -1,0 +1,3 @@
+for ({{initialization}}; {{condition}}; {{final-expression}}) {
+	{{content}}
+}
