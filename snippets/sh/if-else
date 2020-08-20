@@ -1,0 +1,5 @@
+if test {{expression}}; then
+	{{if-clause}}
+else
+	{{else-clause}}
+fi

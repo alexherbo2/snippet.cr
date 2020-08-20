@@ -1,0 +1,8 @@
+case "{{expression}}" in
+	{{pattern}})
+		{{match-clause}}
+		;;
+	*)
+		{{default-clause}}
+		;;
+esac

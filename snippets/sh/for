@@ -1,0 +1,3 @@
+for {{variable}} do
+	{{content}}
+done
