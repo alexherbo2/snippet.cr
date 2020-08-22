@@ -14,6 +14,7 @@ module Snippets::CLI
 
     # Options
     watch = false
+    editor = ENV["EDITOR"]
 
     # Option parser
     option_parser = OptionParser.new do |parser|
@@ -57,6 +58,10 @@ module Snippets::CLI
 
       parser.on("edit", "Edit snippets") do
         command = :edit
+
+        parser.on("--editor=COMMAND", %(Configure editor.  If command contains spaces, command must include "${@}" (including the quotes) to receive the argument list.)) do |command|
+          editor = command
+        end
       end
 
       parser.on("help", "Show help") do
@@ -125,7 +130,7 @@ module Snippets::CLI
     # Edit ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
 
     when :edit
-      system(ENV["EDITOR"], Base.stringify(snippets.files))
+      system(editor, Base.stringify(snippets.files))
 
     # Help ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
 
