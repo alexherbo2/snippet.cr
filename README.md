@@ -25,6 +25,7 @@ make install
 ```
 snippets build [--watch] [directory...]
 snippets edit [--editor=COMMAND]
+snippets show
 snippets get input_paths
 snippets get output_path
 snippets get files
@@ -38,6 +39,7 @@ snippets get snippet [scope...] [name]
 ``` sh
 snippets build
 snippets edit
+snippets show
 snippets get input_paths
 snippets get output_path
 snippets get files

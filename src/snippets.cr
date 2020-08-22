@@ -38,6 +38,12 @@ class Snippets::Base
     end
   end
 
+  # String ─────────────────────────────────────────────────────────────────────
+
+  def to_s
+    build_string
+  end
+
   # All ────────────────────────────────────────────────────────────────────────
 
   def all
@@ -212,6 +218,25 @@ class Snippets::Base
   def self.stringify(paths : Array(Path))
     paths.map do |path|
       stringify(path)
+    end
+  end
+
+  # String builder ─────────────────────────────────────────────────────────────
+
+  private def build_string
+    join('\n') do |snippet|
+      String.build do |io|
+        io.puts "╭───────────────────────────────────────────────────────────────────────────────"
+        io.puts "│ #{snippet.path}"
+        io.puts "├───────────────────────────────────────────────────────────────────────────────"
+
+        # Prefix each line
+        snippet.content.each_line do |line|
+          io.puts "│ #{line}"
+        end
+
+        io.puts "╰───────────────────────────────────────────────────────────────────────────────"
+      end
     end
   end
 end

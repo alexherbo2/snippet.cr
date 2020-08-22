@@ -56,6 +56,10 @@ module Snippets::CLI
         end
       end
 
+      parser.on("show", "Show snippets") do
+        command = :show
+      end
+
       parser.on("edit", "Edit snippets") do
         command = :edit
 
@@ -126,6 +130,11 @@ module Snippets::CLI
       scope = argv
 
       puts snippets.get(scope, name).to_json
+
+    # Show ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
+
+    when :show
+      puts snippets.to_s
 
     # Edit ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
 
