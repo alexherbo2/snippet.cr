@@ -191,4 +191,16 @@ class Snippets::Base
       pathify(path)
     end
   end
+
+  # Stringify ──────────────────────────────────────────────────────────────────
+
+  def self.stringify(object : T) forall T
+    object.to_s
+  end
+
+  def self.stringify(objects : Array(T)) forall T
+    objects.map do |object|
+      stringify(object)
+    end
+  end
 end
