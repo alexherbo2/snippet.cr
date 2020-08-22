@@ -2,7 +2,7 @@ require "json"
 
 module Snippets::Structs
   # Snippet
-  record(Snippet, scope : String, name : String, content : String) do
+  record(Snippet, scope : String, name : String, content : String, path : Path) do
     include JSON::Serializable
   end
 
