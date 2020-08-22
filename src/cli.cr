@@ -38,6 +38,10 @@ module Snippets::CLI
           command = :get_output_path
         end
 
+        parser.on("files", "Get snippet files") do
+          command = :get_files
+        end
+
         parser.on("all", "Get all snippets") do
           command = :get_all
         end
@@ -96,6 +100,9 @@ module Snippets::CLI
 
     when :get_output_path
       puts snippets.output_path.to_json
+
+    when :get_files
+      puts snippets.files.to_json
 
     when :get_all
       puts snippets.all.to_json

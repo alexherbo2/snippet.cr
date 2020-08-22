@@ -26,6 +26,7 @@ make install
 snippets build [--watch] [directory...]
 snippets get input_paths
 snippets get output_path
+snippets get files
 snippets get all
 snippets get snippets [scope...]
 snippets get snippet [scope...] [name]
@@ -37,6 +38,7 @@ snippets get snippet [scope...] [name]
 snippets build
 snippets get input_paths
 snippets get output_path
+snippets get files
 snippets get all
 snippets get snippets crystal
 snippets get snippet crystal def

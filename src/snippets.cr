@@ -33,6 +33,14 @@ class Snippets::Base
     @snippets
   end
 
+  # Files ──────────────────────────────────────────────────────────────────────
+
+  def files
+    @snippets.values.flat_map(&.values).map do |snippet|
+      snippet.path
+    end
+  end
+
   # Get ────────────────────────────────────────────────────────────────────────
 
   # All
