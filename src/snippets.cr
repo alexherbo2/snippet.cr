@@ -3,6 +3,7 @@ require "./structs"
 
 class Snippets::Base
   include Structs
+  include Enumerable(Snippet)
 
   # Input and output paths
   property input_paths
@@ -27,6 +28,16 @@ class Snippets::Base
     new(pathify(input_paths), pathify(output_path))
   end
 
+  # Enumerable ─────────────────────────────────────────────────────────────────
+
+  def each
+    @snippets.each do |scope_name, hash_snippets|
+      hash_snippets.each do |snippet_name, snippet|
+        yield snippet
+      end
+    end
+  end
+
   # All ────────────────────────────────────────────────────────────────────────
 
   def all
@@ -36,7 +47,7 @@ class Snippets::Base
   # Files ──────────────────────────────────────────────────────────────────────
 
   def files
-    @snippets.values.flat_map(&.values).map do |snippet|
+    map do |snippet|
       snippet.path
     end
   end
