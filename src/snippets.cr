@@ -123,7 +123,7 @@ class Snippets::Base
         name = file.basename
         content = File.read(file).chomp
 
-        snippets[scope][name] = Snippet.new(scope, name, content, file)
+        snippets[scope][name] = Snippet.new(scope, name, content, file.expand)
       end
     end
 
