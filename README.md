@@ -48,6 +48,26 @@ snippets get snippets crystal
 snippets get snippet crystal def
 ```
 
+**Example** – Copy to clipboard with [fzf] and [Alacritty] using [wl-clipboard]:
+
+`~/.local/bin/snippets-to-clipboard`
+
+``` sh
+#!/bin/sh
+
+alacritty --class 'Alacritty · Floating' --command sh -c '
+  setsid wl-copy --trim-newline < $(
+    snippets get files |
+    jq --raw-output .[] |
+    fzf --preview-window=down:60% --preview "cat {}" --prompt="(s)>"
+  )
+'
+```
+
+[fzf]: https://github.com/junegunn/fzf
+[Alacritty]: https://github.com/alacritty/alacritty
+[wl-clipboard]: https://github.com/bugaevc/wl-clipboard
+
 ## Credits
 
 - [dscottboggs]
