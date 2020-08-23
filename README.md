@@ -58,7 +58,7 @@ See the output [here][`snippets.txt`].
 
 [`snippets.txt`]: https://gist.github.com/alexherbo2/d6351c92996d0ce2ead82cb35a91250f/raw/snippets.txt
 
-**Example** – Get snippets:
+**Example** – Get all snippets:
 
 ``` sh
 snippets get all
@@ -67,6 +67,56 @@ snippets get all
 See the output [here][`snippets.json`].
 
 [`snippets.json`]: https://gist.github.com/alexherbo2/d6351c92996d0ce2ead82cb35a91250f/raw/snippets.json
+
+**Example** – Get [Crystal] snippets:
+
+``` sh
+snippets get snippets crystal
+```
+
+See the output [here][`get-snippets-crystal.json`].
+
+[`get-snippets-crystal.json`]: https://gist.github.com/alexherbo2/d6351c92996d0ce2ead82cb35a91250f/raw/get-snippets-crystal.json
+
+**Example** – Get the `def` snippet from [Crystal]:
+
+``` sh
+snippets get snippet crystal def
+```
+
+See the output [here][`get-snippet-crystal-def.json`].
+
+[`get-snippet-crystal-def.json`]: https://gist.github.com/alexherbo2/d6351c92996d0ce2ead82cb35a91250f/raw/get-snippet-crystal-def.json
+
+**Example** – Get input paths:
+
+``` sh
+snippets get input_paths
+```
+
+See the output [here][`get-input-paths.json`].
+
+[`get-input-paths.json`]: https://gist.github.com/alexherbo2/d6351c92996d0ce2ead82cb35a91250f/raw/get-input-paths.json
+
+**Example** – Get output path:
+
+``` sh
+snippets get output_path
+```
+
+See the output [here][`get-output-path.json`].
+
+[`get-output-path.json`]: https://gist.github.com/alexherbo2/d6351c92996d0ce2ead82cb35a91250f/raw/get-output-path.json
+
+**Example** – Get snippet files:
+
+``` sh
+snippets get files
+```
+
+See the output [here][`get-files.json`].
+
+[`get-files.json`]: https://gist.github.com/alexherbo2/d6351c92996d0ce2ead82cb35a91250f/raw/get-files.json
 
 **Example** – Copy to clipboard with [fzf] and [Alacritty] using [wl-clipboard]:
 
