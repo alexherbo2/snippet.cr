@@ -1,0 +1,34 @@
+# Emoji
+
+https://unicode-table.com/en/emoji/
+
+``` javascript
+const emojiLinks = document.querySelectorAll('a[data-template]')
+
+const emojiConstructor = (emojiLink) => {
+	const template = JSON.parse(emojiLink.dataset.template)
+	const { symbol, title } = template
+	const name = pathify(title)
+
+	return { name, symbol }
+}
+
+const pathify = (string) => {
+	return string
+		.toLowerCase()
+		.replace(/\s/g, '-')
+}
+
+const emojiList = Array.from(emojiLinks, emojiConstructor)
+
+const emojiShellCommandConstructor = (emoji) => {
+	const quoted_symbol = JSON.stringify(emoji.symbol)
+	const quoted_path = JSON.stringify(`snippets/global/emoji/${emoji.name}`)
+
+	return `echo ${quoted_symbol} > ${quoted_path}`
+}
+
+const emojiShellScript = emojiList.map(emojiShellCommandConstructor).join('\n')
+
+emojiShellScript
+```
