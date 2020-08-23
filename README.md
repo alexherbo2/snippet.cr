@@ -48,6 +48,26 @@ snippets get snippets crystal
 snippets get snippet crystal def
 ```
 
+**Example** – Show snippets:
+
+``` sh
+snippets show
+```
+
+See the output [here][`snippets.txt`].
+
+[`snippets.txt`]: https://gist.github.com/alexherbo2/d6351c92996d0ce2ead82cb35a91250f/raw/snippets.txt
+
+**Example** – Get snippets:
+
+``` sh
+snippets get all
+```
+
+See the output [here][`snippets.json`].
+
+[`snippets.json`]: https://gist.github.com/alexherbo2/d6351c92996d0ce2ead82cb35a91250f/raw/snippets.json
+
 **Example** – Copy to clipboard with [fzf] and [Alacritty] using [wl-clipboard]:
 
 `~/.local/bin/snippets-to-clipboard`
