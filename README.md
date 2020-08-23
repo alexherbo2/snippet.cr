@@ -54,9 +54,9 @@ snippets get snippet crystal def
 snippets show
 ```
 
-See the output [here][`snippets.txt`].
+See the output [here][`show.txt`].
 
-[`snippets.txt`]: https://gist.github.com/alexherbo2/d6351c92996d0ce2ead82cb35a91250f/raw/snippets.txt
+[`show.txt`]: https://gist.github.com/alexherbo2/d6351c92996d0ce2ead82cb35a91250f/raw/show.txt
 
 **Example** – Get all snippets:
 
@@ -64,9 +64,9 @@ See the output [here][`snippets.txt`].
 snippets get all
 ```
 
-See the output [here][`snippets.json`].
+See the output [here][`get-all.json`].
 
-[`snippets.json`]: https://gist.github.com/alexherbo2/d6351c92996d0ce2ead82cb35a91250f/raw/snippets.json
+[`get-all.json`]: https://gist.github.com/alexherbo2/d6351c92996d0ce2ead82cb35a91250f/raw/get-all.json
 
 **Example** – Get [Crystal] snippets:
 
