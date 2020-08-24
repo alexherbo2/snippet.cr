@@ -48,6 +48,12 @@ snippets get snippets crystal
 snippets get snippet crystal def
 ```
 
+**Example** – Build snippets:
+
+``` sh
+snippets build
+```
+
 **Example** – Show snippets:
 
 ``` sh
