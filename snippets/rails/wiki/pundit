@@ -33,7 +33,8 @@ app/policies/post_policy.rb:
 ``` ruby
 class PostPolicy < ApplicationPolicy
 	def update?
-		user.admin? || record.valid?
+		user.admin? ||
+		record.user == user
 	end
 end
 ```
