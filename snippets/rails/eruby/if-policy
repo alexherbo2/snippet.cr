@@ -1,0 +1,3 @@
+<% if policy({{model}}).{{action}}? %>
+	{{content}}
+<% end %>
