@@ -1,0 +1,5 @@
+try %{
+	{{commands}}
+} catch %{
+	{{error-commands}}
+}
