@@ -1,0 +1,4 @@
+skip_before_action :authenticate_user!, only: %i[{{action}}]
+
+def {{action}}
+end
