@@ -43,6 +43,10 @@ app/controllers/posts_controller.rb:
 
 ``` ruby
 class PostsController < ApplicationController
+	def index
+		@posts = policy_scope(Post)
+	end
+
 	def update
 		...
 		authorize @post
