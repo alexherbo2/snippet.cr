@@ -1,3 +1,1 @@
-<%= link_to {{path}}_path({{record}}) do %>
-	Show
-<% end %>
+<%= link_to 'Show', {{path}}_path({{record}}) %>

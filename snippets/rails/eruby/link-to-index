@@ -1,3 +1,1 @@
-<%= link_to {{path}}_path do %>
-	Index
-<% end %>
+<%= link_to 'Index', {{path}}_path %>

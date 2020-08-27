@@ -1,3 +1,1 @@
-<%= link_to {{path}}_path({{record}}), method: :delete, data: { confirm: 'Delete?' } do %>
-	Delete
-<% end %>
+<%= link_to 'Delete', {{path}}_path({{record}}), method: :delete, data: { confirm: 'Delete?' } %>
