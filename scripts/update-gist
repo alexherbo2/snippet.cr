@@ -13,7 +13,8 @@ snippets get output_path         | jq > get-output-path.json
 snippets get files               | jq > get-files.json
 
 git add .
-git commit --message=$(date '+%F %T')
+commit_message=$(date '+%F %T')
+git commit --message="$commit_message"
 git push
 
 # Open gist
