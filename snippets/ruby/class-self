@@ -1,0 +1,3 @@
+class << self
+	{{content}}
+end
