@@ -1,6 +1,6 @@
 # Snippets
 
-An editor agnostic command-line tool for snippets.
+An editor agnostic command-line tool for managing snippets.
 
 ## Dependencies
 
