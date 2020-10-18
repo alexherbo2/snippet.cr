@@ -1,9 +1,0 @@
-hook global ModuleLoaded {{module}} %{
-	{{on-load}}
-}
-
-provide-module {{module}} %{
-	{{content}}
-}
-
-require-module {{module}}
