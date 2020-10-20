@@ -1,0 +1,1 @@
+declare-option -hidden str {{plugin}}_{{path}}_path "%opt{{{plugin}}_root_path}/{{path}}"
