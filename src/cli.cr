@@ -1,6 +1,10 @@
 require "option_parser"
+require "file_utils"
 require "./snippets"
 require "./env"
+
+PROGRAM_PATH = Path[Process.executable_path || PROGRAM_NAME]
+RUNTIME_PATH = PROGRAM_PATH.join("../../share/snippets").expand
 
 # Default input and output paths
 SNIPPETS_CONFIG_PATH = Path[ENV["XDG_CONFIG_HOME"], "snippets"]
@@ -19,6 +23,10 @@ module Snippets::CLI
     # Option parser
     option_parser = OptionParser.new do |parser|
       parser.banner = "Usage: snippets <command> [arguments]"
+
+      parser.on("install", "Install snippets") do
+        command = :install
+      end
 
       parser.on("build", "Build snippets") do
         command = :build
@@ -88,6 +96,18 @@ module Snippets::CLI
     # Commands ─────────────────────────────────────────────────────────────────
 
     case command
+
+    # Install ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
+
+    when :install
+      source = (RUNTIME_PATH / "base").to_s
+      destination = (SNIPPETS_CONFIG_PATH / "base").to_s
+      directory = SNIPPETS_CONFIG_PATH.to_s
+
+      FileUtils.rm_rf(destination)
+      Dir.mkdir_p(directory)
+      FileUtils.cp_r(source, destination)
+      puts "Copied #{source} to #{destination}"
 
     # Build ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
 

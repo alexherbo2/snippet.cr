@@ -23,6 +23,7 @@ make install
 ## Usage
 
 ```
+snippets install
 snippets build [--watch] [directory...]
 snippets edit [--editor=COMMAND]
 snippets show
@@ -37,6 +38,7 @@ snippets get snippet [scope...] [name]
 ## Examples
 
 ``` sh
+snippets install
 snippets build
 snippets edit
 snippets show
@@ -46,6 +48,12 @@ snippets get files
 snippets get all
 snippets get snippets crystal
 snippets get snippet crystal def
+```
+
+**Example** – Install snippets:
+
+``` sh
+snippets install
 ```
 
 **Example** – Build snippets:
