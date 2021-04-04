@@ -3,7 +3,7 @@ build:
 
 install: build
 	install -d ~/.local/bin
-	install bin/snippets ~/.local/bin
+	ln -sf ${PWD}/bin/snippets ~/.local/bin
 	bin/snippets install
 
 uninstall:
