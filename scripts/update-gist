@@ -19,3 +19,6 @@ git push
 
 # Open gist
 chromium https://gist.github.com/alexherbo2/d6351c92996d0ce2ead82cb35a91250f
+
+# Open a shell
+$SHELL
