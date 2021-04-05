@@ -24,6 +24,11 @@ module Snippets::CLI
     option_parser = OptionParser.new do |parser|
       parser.banner = "Usage: snippets <command> [arguments]"
 
+      parser.on("-h", "--help", "Show help") do
+        puts parser
+        exit
+      end
+
       parser.on("install", "Install snippets") do
         command = :install
       end
@@ -38,6 +43,8 @@ module Snippets::CLI
 
       parser.on("get", "Get a property") do
         command = :get
+
+        parser.banner = "Usage: snippets get <name>"
 
         parser.on("input_paths", "Get input paths") do
           command = :get_input_paths
@@ -164,7 +171,7 @@ module Snippets::CLI
     # Help ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
 
     when :help
-      puts option_parser
+      option_parser.parse(argv + ["--help"])
 
     # Error ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
 
