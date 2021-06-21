@@ -139,7 +139,7 @@ See the output [here][`get-files.json`].
 ``` sh
 #!/bin/sh
 
-alacritty --class 'Alacritty · Floating' --command sh -c '
+alacritty --class 'popup' --command sh -c '
   snippets get files | jq --raw-output .[] |
   fzf --preview "cat {}" --header="Select a snippet to copy" --prompt="(s)>" |
   xargs cat -- | setsid wl-copy --trim-newline
