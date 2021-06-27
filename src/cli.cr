@@ -1,90 +1,61 @@
 require "option_parser"
-require "file_utils"
-require "./snippets"
+require "json"
+require "./main"
 require "./env"
 
-PROGRAM_PATH = Path[Process.executable_path || PROGRAM_NAME]
-RUNTIME_PATH = PROGRAM_PATH.join("../../share/snippets").expand
+DATA_PATH = Path[ENV["XDG_DATA_HOME"], "scr"]
+SNIPPETS_PATH = DATA_PATH / "snippets"
 
-# Default input and output paths
-SNIPPETS_CONFIG_PATH = Path[ENV["XDG_CONFIG_HOME"], "snippets"]
-SNIPPETS_INPUT_PATHS = Snippets::Base.pathify(Dir.glob(SNIPPETS_CONFIG_PATH / "*"))
-SNIPPETS_OUTPUT_PATH = Path[ENV["XDG_CACHE_HOME"], "snippets.json"]
+module Snippet::CLI
+  extend self
 
-module Snippets::CLI
-  def self.start(argv)
-    # Subcommand
-    command = :help
+  struct Options
+    property command : Symbol?
+    property path : Path?
+    property stdin = false
+  end
 
+  def start(argv)
     # Options
-    watch = false
-    editor = ENV["EDITOR"]
+    options = Options.new
 
     # Option parser
     option_parser = OptionParser.new do |parser|
-      parser.banner = "Usage: snippets <command> [arguments]"
+      parser.banner = "Usage: scr <command> [arguments]"
+
+      parser.on("-v", "--version", "Display version") do
+        puts VERSION
+        exit
+      end
 
       parser.on("-h", "--help", "Show help") do
         puts parser
         exit
       end
 
-      parser.on("install", "Install snippets") do
-        command = :install
+      parser.on("--", "Stop handling options") do
+        parser.stop
       end
 
-      parser.on("build", "Build snippets") do
-        command = :build
-
-        parser.on("--watch", "Watch specified directories") do
-          watch = true
-        end
+      parser.on("-", "Stop handling options and read stdin") do
+        parser.stop
+        options.stdin = true
       end
 
-      parser.on("get", "Get a property") do
-        command = :get
+      parser.on("select", "Select snippets") do
+        options.command = :select
 
-        parser.banner = "Usage: snippets get <name>"
-
-        parser.on("input_paths", "Get input paths") do
-          command = :get_input_paths
-        end
-
-        parser.on("output_path", "Get output path") do
-          command = :get_output_path
-        end
-
-        parser.on("files", "Get snippet files") do
-          command = :get_files
-        end
-
-        parser.on("all", "Get all snippets") do
-          command = :get_all
-        end
-
-        parser.on("snippets", "Get snippets") do
-          command = :get_snippets
-        end
-
-        parser.on("snippet", "Get a snippet") do
-          command = :get_snippet
-        end
-      end
-
-      parser.on("show", "Show snippets") do
-        command = :show
-      end
-
-      parser.on("edit", "Edit snippets") do
-        command = :edit
-
-        parser.on("--editor=COMMAND", %(Configure editor.  If command contains spaces, command must include "${@}" (including the quotes) to receive the argument list.)) do |command|
-          editor = command
+        parser.on("-P PATH", "--path=PATH", "File path") do |path|
+          options.path = Path[path]
         end
       end
 
       parser.on("help", "Show help") do
-        command = :help
+        options.command = :help
+      end
+
+      parser.on("version", "Display version") do
+        options.command = :version
       end
 
       parser.invalid_option do |flag|
@@ -97,89 +68,27 @@ module Snippets::CLI
     # Parse options
     option_parser.parse(argv)
 
-    # Initialization
-    snippets = Base.new(SNIPPETS_INPUT_PATHS, SNIPPETS_OUTPUT_PATH)
+    # Run command
+    case options.command
 
-    # Commands ─────────────────────────────────────────────────────────────────
+    when :select
+      snippets = Directory.read(SNIPPETS_PATH).select(options.path.as(Path))
 
-    case command
-
-    # Install ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
-
-    when :install
-      source = (RUNTIME_PATH / "base").to_s
-      destination = (SNIPPETS_CONFIG_PATH / "base").to_s
-      directory = SNIPPETS_CONFIG_PATH.to_s
-
-      FileUtils.rm_rf(destination)
-      Dir.mkdir_p(directory)
-      FileUtils.cp_r(source, destination)
-      puts "Copied #{source} to #{destination}"
-
-    # Build ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
-
-    when :build
-      # Input paths
-      snippets.input_paths = argv unless argv.empty?
-
-      puts snippets.build.to_json
-
-      if watch
-        snippets.watch do
-          puts snippets.all.to_json
-        end
-      end
-
-    # Get ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
-
-    when :get
-      puts option_parser.parse(["get", "--help"])
-
-    when :get_input_paths
-      puts snippets.input_paths.to_json
-
-    when :get_output_path
-      puts snippets.output_path.to_json
-
-    when :get_files
-      puts snippets.files.to_json
-
-    when :get_all
-      puts snippets.all.to_json
-
-    when :get_snippets
-      scope = argv
-
-      puts snippets.get(scope).to_json
-
-    when :get_snippet
-      name = argv.pop
-      scope = argv
-
-      puts snippets.get(scope, name).to_json
-
-    # Show ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
-
-    when :show
-      puts snippets.to_s
-
-    # Edit ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
-
-    when :edit
-      system(editor, Base.stringify(snippets.files))
-
-    # Help ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
+      puts snippets.to_json
 
     when :help
       option_parser.parse(argv + ["--help"])
 
-    # Error ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
+    when :version
+      puts VERSION
+      exit
 
     else
-      STDERR.puts option_parser
+      STDERR.puts "No such command: #{options.command}"
       exit(1)
+
     end
   end
 end
 
-Snippets::CLI.start(ARGV)
+Snippet::CLI.start(ARGV)

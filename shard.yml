@@ -1,7 +1,10 @@
-name: snippets
+name: snippet.cr
 version: 0.1.0
 crystal: 1.0.0
 license: Unlicense
 targets:
-  snippets:
+  scr:
     main: src/cli.cr
+dependencies:
+  walk:
+    github: alexherbo2/walk.cr

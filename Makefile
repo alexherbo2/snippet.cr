@@ -1,19 +1,30 @@
+name := snippet.cr
+version := $(shell git describe --tags --always)
+target := $(shell llvm-config --host-target)
+static ?= no
+
+ifeq ($(static),yes)
+  flags += --static
+endif
+
 build:
-	shards build --release
+	shards build --release $(flags)
+
+x86_64-unknown-linux-musl:
+	scripts/docker-run make static=yes
+
+x86_64-apple-darwin: build
+
+release: $(target)
+	mkdir -p releases
+	zip -r releases/$(name)-$(version)-$(target).zip bin share
 
 install: build
-	# Install bin/snippets
 	install -d ~/.local/bin
-	install bin/snippets ~/.local/bin
-	# Install share/snippets
-	install -d ~/.local/share
-	rm -Rf ~/.local/share/snippets
-	cp -R share/snippets ~/.local/share
-	# Install support
-	bin/snippets install
+	install bin/scr ~/.local/bin
 
 uninstall:
-	rm -Rf ~/.local/bin/snippets ~/.local/share/snippets
+	rm -Rf ~/.local/bin/scr ~/.local/share/scr
 
 clean:
-	rm -Rf bin
+	rm -Rf bin lib releases shard.lock
