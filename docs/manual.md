@@ -42,9 +42,9 @@ Install files.
 scr install snippets
 ```
 
-Install [snippets][Shipped snippets].
+Install [snippets][built-in snippets].
 
-[Shipped snippets]: ../share/scr/snippets
+[Built-in snippets]: ../share/scr/snippets
 
 ###### `select`
 

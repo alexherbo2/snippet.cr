@@ -12,7 +12,7 @@ snippet.cr has [built-in snippets] for a number of languages.
 
 [Built-in snippets]: ../share/scr/snippets
 
-## Install snippets from the Marketplace
+## Install snippets from the marketplace
 
 Just drop snippets in your `~/.config/scr/snippets` folder.
 
