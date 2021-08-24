@@ -109,6 +109,7 @@ module Snippet::CLI
 
     else
       STDERR.puts "No such command: #{options.command}"
+      STDERR.puts option_parser
       exit(1)
 
     end
