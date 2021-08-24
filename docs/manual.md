@@ -17,7 +17,7 @@ Returns matched snippets in JSON.
 ]
 ```
 
-The default location for snippets are `~/.local/share/scr/snippets`.
+The default location for snippets are `~/.config/scr/snippets`.
 
 ## Options
 
@@ -27,6 +27,24 @@ The default location for snippets are `~/.local/share/scr/snippets`.
 - `-` ⇒ Stop handling options and read stdin
 
 ## Commands
+
+###### `install`
+
+```
+scr install <name>
+```
+
+Install files.
+
+###### `install snippets`
+
+```
+scr install snippets
+```
+
+Install [snippets][Shipped snippets].
+
+[Shipped snippets]: ../share/scr/snippets
 
 ###### `select`
 

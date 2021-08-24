@@ -8,33 +8,19 @@ See the [manual].
 
 ## Built-in snippets
 
-snippet.cr has built-in snippets for a number of languages.
+snippet.cr has [built-in snippets] for a number of languages.
 
-See the [snippets].
-
-[Snippets]: ../share/scr/snippets
-
-You can install them with the following command:
-
-``` sh
-mkdir -p ~/.local/share/scr/snippets
-cp -R share/scr/snippets ~/.local/share/scr/snippets/support
-```
-
-`~/.local/share/scr/snippets` is the default location for snippets
-and `support` just a convention to place default snippets.
-
-You can pick none of them and just start creating your own snippets.
+[Built-in snippets]: ../share/scr/snippets
 
 ## Install snippets from the Marketplace
 
-Just drop snippets in your `~/.local/share/scr/snippets` folder.
+Just drop snippets in your `~/.config/scr/snippets` folder.
 
 ## Create your own snippets
 
 Each snippet is defined under a snippet name and has a content and scope.
 
-To create your first snippet, open `~/.local/share/scr/snippets/crystal/def`:
+To create your first snippet, open `~/.config/scr/snippets/crystal/def`:
 
 ```
 def {{name}}
@@ -68,7 +54,7 @@ Snippets can be scoped by either:
 
 If the scope is omitted, the snippet gets applied to all languages.
 
-To create your first scope, open `~/.local/share/scr/snippets/crystal/scope.yml`:
+To create your first scope, open `~/.config/scr/snippets/crystal/scope.yml`:
 
 ``` yaml
 extensions: [".cr"]
@@ -76,7 +62,7 @@ extensions: [".cr"]
 
 Add a second snippet and its scope for testing:
 
-`~/.local/share/scr/snippets/crystal/spec/describe`
+`~/.config/scr/snippets/crystal/spec/describe`
 
 ```
 describe {{description}} do
@@ -84,7 +70,7 @@ describe {{description}} do
 end
 ```
 
-`~/.local/share/scr/snippets/crystal/spec/scope.yml`
+`~/.config/scr/snippets/crystal/spec/scope.yml`
 
 ``` yaml
 paths: ["**/spec/*_spec.cr"]

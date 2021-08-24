@@ -20,8 +20,18 @@ release: $(target)
 	zip -r releases/$(name)-$(version)-$(target).zip bin share
 
 install: build
+
+	# Install bin/scr
 	install -d ~/.local/bin
 	install bin/scr ~/.local/bin
+
+	# Install share/scr
+	install -d ~/.local/share
+	rm -Rf ~/.local/share/scr
+	cp -R share/scr ~/.local/share
+
+	# Install support
+	bin/scr install snippets
 
 uninstall:
 	rm -Rf ~/.local/bin/scr ~/.local/share/scr

@@ -1,10 +1,18 @@
 require "option_parser"
 require "json"
+require "file_utils"
 require "./main"
 require "./env"
 
-DATA_PATH = Path[ENV["XDG_DATA_HOME"], "scr"]
-SNIPPETS_PATH = DATA_PATH / "snippets"
+PROGRAM_PATH = Path[Process.executable_path || PROGRAM_NAME]
+RUNTIME_PATH = PROGRAM_PATH.join("../../share/scr").expand
+
+# Built-in snippets
+BUILTIN_SNIPPETS_PATH = RUNTIME_PATH / "snippets"
+
+# Configuration
+CONFIG_PATH = Path[ENV["XDG_CONFIG_HOME"], "scr"]
+SNIPPETS_PATH = CONFIG_PATH / "snippets"
 
 module Snippet::CLI
   extend self
@@ -42,6 +50,16 @@ module Snippet::CLI
         options.stdin = true
       end
 
+      parser.on("install", "Install files") do
+        options.command = :install
+
+        parser.banner = "Usage: scr install <name>"
+
+        parser.on("snippets", "Install snippets") do
+          options.command = :install_snippets
+        end
+      end
+
       parser.on("select", "Select snippets") do
         options.command = :select
 
@@ -71,6 +89,12 @@ module Snippet::CLI
     # Run command
     case options.command
 
+    when :install
+      option_parser.parse(["install", "--help"])
+
+    when :install_snippets
+      install_snippets
+
     when :select
       snippets = Directory.read(SNIPPETS_PATH).select(options.path.as(Path))
 
@@ -89,6 +113,19 @@ module Snippet::CLI
 
     end
   end
+
+  def install_snippets
+    install_path = SNIPPETS_PATH / "support"
+
+    { BUILTIN_SNIPPETS_PATH.to_s, install_path.to_s, install_path.dirname }.tap do |source, destination, directory|
+      return if Dir.exists?(destination)
+
+      Dir.mkdir_p(directory)
+      FileUtils.cp_r(source, destination)
+      puts "Copied #{source} to #{destination}"
+    end
+  end
+
 end
 
 Snippet::CLI.start(ARGV)
