@@ -1,18 +1,5 @@
-# Version
-require "./version"
-
-# Types
-require "./node"
+require "./env"
 require "./snippet"
-require "./scope"
+require "./snippet/cli"
 
-# Scopes
-require "./scope/global"
-require "./scope/root"
-require "./scope/path"
-require "./scope/extension"
-
-# Parser
-require "./directory"
-require "./file/snippet"
-require "./file/scope"
+Snippet::CLI.start(ARGV)

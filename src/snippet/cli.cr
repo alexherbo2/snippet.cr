@@ -1,21 +1,12 @@
 require "option_parser"
 require "json"
 require "file_utils"
-require "./main"
-require "./env"
-
-PROGRAM_PATH = Path[Process.executable_path || PROGRAM_NAME]
-RUNTIME_PATH = PROGRAM_PATH.join("../../share/scr").expand
-
-# Built-in snippets
-BUILTIN_SNIPPETS_PATH = RUNTIME_PATH / "snippets"
-
-# Configuration
-CONFIG_PATH = Path[ENV["XDG_CONFIG_HOME"], "scr"]
-SNIPPETS_PATH = CONFIG_PATH / "snippets"
 
 module Snippet::CLI
   extend self
+
+  CONFIG_PATH = Path[ENV["SCR_CONFIG"]]
+  RUNTIME_PATH = Path[ENV["SCR_RUNTIME"]]
 
   struct Options
     property command : Symbol?
@@ -96,7 +87,7 @@ module Snippet::CLI
       install_snippets
 
     when :select
-      snippets = Directory.read(SNIPPETS_PATH).select(options.path.as(Path))
+      snippets = Directory.read(CONFIG_PATH / "snippets").select(options.path.as(Path))
 
       puts snippets.to_json
 
@@ -116,9 +107,9 @@ module Snippet::CLI
   end
 
   def install_snippets
-    install_path = SNIPPETS_PATH / "support"
+    install_path = CONFIG_PATH / "snippets" / "support"
 
-    { BUILTIN_SNIPPETS_PATH.to_s, install_path.to_s, install_path.dirname }.tap do |source, destination, directory|
+    { RUNTIME_PATH.join("snippets").to_s, install_path.to_s, install_path.dirname }.tap do |source, destination, directory|
       return if Dir.exists?(destination)
 
       Dir.mkdir_p(directory)
@@ -128,5 +119,3 @@ module Snippet::CLI
   end
 
 end
-
-Snippet::CLI.start(ARGV)

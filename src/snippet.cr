@@ -1,13 +1,18 @@
-require "json"
+# Version
+require "./snippet/version"
 
-struct Snippet::Snippet
-  include JSON::Serializable
+# Types
+require "./snippet/node"
+require "./snippet/snippet"
+require "./snippet/scope"
 
-  # Properties
-  property name : String
-  property content : String
+# Scopes
+require "./snippet/scope/global"
+require "./snippet/scope/root"
+require "./snippet/scope/path"
+require "./snippet/scope/extension"
 
-  # Creates a new instance.
-  def initialize(@name, @content)
-  end
-end
+# Parser
+require "./snippet/directory"
+require "./snippet/file/snippet"
+require "./snippet/file/scope"

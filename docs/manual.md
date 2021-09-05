@@ -61,3 +61,8 @@ Show help.
 ###### `version`
 
 Display version.
+
+## Environment variables
+
+- `SCR_CONFIG`: Specifies the path to the configuration directory (Default: `~/.config/scr/snippets`)
+- `SCR_RUNTIME`: Location of the runtime path (Default: `../share/scr` relative to the `scr` binary directory)
