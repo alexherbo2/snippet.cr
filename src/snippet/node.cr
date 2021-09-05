@@ -31,4 +31,8 @@ struct Snippet::Node
 
     snippets
   end
+
+  def select(path : String)
+    self.select(Path[path])
+  end
 end
