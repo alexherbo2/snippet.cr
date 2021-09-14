@@ -11,7 +11,7 @@ module Snippet::CLI
   struct Options
     property command : Symbol?
     property path : Path?
-    property stdin = false
+    property? stdin = false
   end
 
   def start(argv)

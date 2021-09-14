@@ -1,6 +1,6 @@
 class Snippet::ScopeGlobal < Snippet::Scope
   # Properties
-  property enabled : Bool
+  property? enabled : Bool
 
   # Creates a new instance.
   def initialize(@enabled)
@@ -8,6 +8,6 @@ class Snippet::ScopeGlobal < Snippet::Scope
 
   # Evaluates the scope of a snippet.
   def call(path : Path)
-    @enabled
+    enabled?
   end
 end
