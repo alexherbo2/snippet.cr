@@ -68,9 +68,7 @@ module Snippet::CLI
       end
 
       parser.invalid_option do |flag|
-        STDERR.puts "Error: Unknown option: #{flag}"
-        STDERR.puts parser
-        exit(1)
+        abort "Error: Unknown option: #{flag}"
       end
     end
 
@@ -99,9 +97,7 @@ module Snippet::CLI
       exit
 
     else
-      STDERR.puts "No such command: #{options.command}"
-      STDERR.puts option_parser
-      exit(1)
+      abort "No such command: #{options.command}"
 
     end
   end
