@@ -57,7 +57,7 @@ module Snippet::CLI
       parser.on("select", "Select snippets") do
         options.command = :select
 
-        parser.on("-P PATH", "--path=PATH", "File path") do |path|
+        parser.on("-p PATH", "--path=PATH", "File path") do |path|
           options.path = Path[path]
         end
       end
@@ -65,15 +65,15 @@ module Snippet::CLI
       parser.on("insert", "Insert snippets") do
         options.command = :insert
 
-        parser.on("-P VALUE", "--prefix=VALUE", "Use the given prefix") do |value|
+        parser.on("-p VALUE", "--prefix=VALUE", "Use the given prefix") do |value|
           formatter.prefix = value
         end
 
-        parser.on("-T", "--tab", "Use a tab for each indentation level instead of two spaces") do
+        parser.on("-t", "--tab", "Use a tab for each indentation level instead of two spaces") do
           formatter.tab = true
         end
 
-        parser.on("-I NUMBER", "--indent=NUMBER", "Use the given number of spaces for indentation") do |number|
+        parser.on("-i NUMBER", "--indent=NUMBER", "Use the given number of spaces for indentation") do |number|
           formatter.indent = number.to_i
         end
       end

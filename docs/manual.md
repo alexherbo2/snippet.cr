@@ -50,7 +50,7 @@ Install [snippets][built-in snippets].
 
 **Options**
 
-- `-P`, `--path <path>` ⇒ File path
+- `-p`, `--path <path>` ⇒ File path
 
 Select snippets.
 
@@ -58,9 +58,9 @@ Select snippets.
 
 **Options**
 
-- `-P`, `--prefix <value>` ⇒ Use the given prefix
-- `-T`, `--tab` ⇒ Use a tab for each indentation level instead of two spaces
-- `-I`, `--indent <number>` ⇒ Use the given number of spaces for indentation
+- `-p`, `--prefix <value>` ⇒ Use the given prefix
+- `-t`, `--tab` ⇒ Use a tab for each indentation level instead of two spaces
+- `-i`, `--indent <number>` ⇒ Use the given number of spaces for indentation
 
 Insert snippets.
 
