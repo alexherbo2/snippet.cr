@@ -18,6 +18,9 @@ module Snippet::CLI
     # Options
     options = Options.new
 
+    # Formatter
+    formatter = Formatter.new
+
     # Option parser
     option_parser = OptionParser.new do |parser|
       parser.banner = "Usage: scr <command> [arguments]"
@@ -59,6 +62,22 @@ module Snippet::CLI
         end
       end
 
+      parser.on("insert", "Insert snippets") do
+        options.command = :insert
+
+        parser.on("-P VALUE", "--prefix=VALUE", "Use the given prefix") do |value|
+          formatter.prefix = value
+        end
+
+        parser.on("-T", "--tab", "Use a tab for each indentation level instead of two spaces") do
+          formatter.tab = true
+        end
+
+        parser.on("-I NUMBER", "--indent=NUMBER", "Use the given number of spaces for indentation") do |number|
+          formatter.indent = number.to_i
+        end
+      end
+
       parser.on("help", "Show help") do
         options.command = :help
       end
@@ -88,6 +107,9 @@ module Snippet::CLI
       snippets = Directory.read(CONFIG_PATH / "snippets").select(options.path.as(Path))
 
       puts snippets.to_json
+
+    when :insert
+      formatter.format(STDIN, STDOUT)
 
     when :help
       option_parser.parse(argv + ["--help"])

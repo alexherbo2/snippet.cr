@@ -54,6 +54,16 @@ Install [snippets][built-in snippets].
 
 Select snippets.
 
+###### `insert`
+
+**Options**
+
+- `-P`, `--prefix <value>` ⇒ Use the given prefix
+- `-T`, `--tab` ⇒ Use a tab for each indentation level instead of two spaces
+- `-I`, `--indent <number>` ⇒ Use the given number of spaces for indentation
+
+Insert snippets.
+
 ###### `help`
 
 Show help.

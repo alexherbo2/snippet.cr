@@ -16,3 +16,6 @@ require "./snippet/scope/extension"
 require "./snippet/directory"
 require "./snippet/file/snippet"
 require "./snippet/file/scope"
+
+# Formatter
+require "./snippet/formatter"
