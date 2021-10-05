@@ -11,6 +11,7 @@ module Snippet::CLI
   struct Options
     property command : Symbol?
     property path : Path?
+    property prefix = ""
     property? stdin = false
   end
 
@@ -60,6 +61,10 @@ module Snippet::CLI
         parser.on("-p PATH", "--path=PATH", "File path") do |path|
           options.path = Path[path]
         end
+
+        parser.on("-P VALUE", "--prefix=VALUE", "Use the given prefix") do |value|
+          options.prefix = value
+        end
       end
 
       parser.on("insert", "Insert snippets") do
@@ -104,7 +109,7 @@ module Snippet::CLI
       install_snippets
 
     when :select
-      snippets = Directory.read(CONFIG_PATH / "snippets").select(options.path.as(Path))
+      snippets = Directory.read(CONFIG_PATH / "snippets").select(options.path.as(Path), options.prefix)
 
       puts snippets.to_json
 

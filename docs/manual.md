@@ -51,6 +51,7 @@ Install [snippets][built-in snippets].
 **Options**
 
 - `-p`, `--path <path>` ⇒ File path
+- `-P`, `--prefix <value>` ⇒ Use the given prefix
 
 Select snippets.
 

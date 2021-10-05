@@ -15,6 +15,10 @@ struct Snippet::Node
     @children.push(node)
   end
 
+  def select(path : Path | String, prefix : String)
+    self.select(path).select(&.name.starts_with?(prefix))
+  end
+
   def select(path : Path)
     snippets = [] of Snippet
 
