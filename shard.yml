@@ -5,6 +5,3 @@ license: Unlicense
 targets:
   scr:
     main: src/main.cr
-dependencies:
-  walk:
-    github: alexherbo2/walk.cr
