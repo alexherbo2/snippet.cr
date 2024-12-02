@@ -9,8 +9,7 @@ class Snippet::ScopePath < Snippet::Scope
   # Evaluates the scope of a snippet.
   def call(path : Path)
     @paths.any? do |pattern|
-      # https://github.com/crystal-lang/crystal/issues/11014
-      File.match?(pattern, path.to_s)
+      File.match?(pattern, path)
     end
   end
 end
