@@ -1,5 +1,3 @@
-require "walk"
-
 class Snippet::ScopeRoot < Snippet::Scope
   # Properties
   property roots : Array(String)
@@ -10,9 +8,9 @@ class Snippet::ScopeRoot < Snippet::Scope
 
   # Evaluates the scope of a snippet.
   def call(path : Path)
-    Walk::Up.new(path).any? do |directory|
+    path.parents.any? do |parent|
       @roots.any? do |root|
-        File.exists?(directory / root)
+        File.exists?(parent / root)
       end
     end
   end
